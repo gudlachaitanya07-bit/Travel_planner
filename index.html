@@ -1,0 +1,1098 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Voyage | Smart Travel Planner</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+:root{
+--bg:#080e1c;
+--card:#111c30;
+--primary:#38bdf8;
+--secondary:#818cf8;
+--text:#f8fafc;
+--muted:#94a3b8;
+--border:rgba(255,255,255,.09);
+}
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+}
+
+html{
+scroll-behavior:smooth;
+}
+
+body{
+font-family:'Inter',sans-serif;
+background:
+linear-gradient(rgba(5,12,25,.88),rgba(5,12,25,.95)),
+url('https://travelplanner.app/wp-content/uploads/2020/05/travelplanner.jpg')
+center/cover fixed;
+color:var(--text);
+min-height:100vh;
+}
+
+.container{
+max-width:1250px;
+margin:auto;
+padding:25px;
+}
+
+/* NAVBAR */
+
+.navbar{
+display:flex;
+align-items:center;
+justify-content:space-between;
+padding:18px 0;
+border-bottom:1px solid var(--border);
+margin-bottom:35px;
+}
+
+.logo{
+font-size:25px;
+font-weight:800;
+letter-spacing:-1px;
+}
+
+.logo span{
+color:var(--primary);
+}
+
+.nav-links{
+display:flex;
+gap:28px;
+}
+
+.nav-links a{
+color:var(--muted);
+text-decoration:none;
+font-size:14px;
+transition:.3s;
+}
+
+.nav-links a:hover{
+color:var(--primary);
+}
+
+/* HERO */
+
+.hero{
+margin:45px 0 35px;
+}
+
+.tag{
+display:inline-block;
+padding:8px 14px;
+border-radius:30px;
+background:rgba(56,189,248,.12);
+color:var(--primary);
+font-size:12px;
+font-weight:600;
+margin-bottom:18px;
+}
+
+.hero h1{
+font-size:clamp(32px,5vw,52px);
+font-weight:800;
+letter-spacing:-2px;
+line-height:1.15;
+}
+
+.hero h1 span{
+color:var(--primary);
+}
+
+.hero p{
+color:var(--muted);
+margin-top:15px;
+line-height:1.7;
+max-width:600px;
+font-size:14px;
+}
+
+/* MAIN LAYOUT */
+
+.main-grid{
+display:grid;
+grid-template-columns:380px 1fr;
+gap:22px;
+align-items:start;
+}
+
+.card{
+background:rgba(17,28,48,.92);
+border:1px solid var(--border);
+border-radius:18px;
+padding:25px;
+backdrop-filter:blur(15px);
+box-shadow:0 15px 40px rgba(0,0,0,.2);
+}
+
+.card h2{
+font-size:19px;
+margin-bottom:7px;
+}
+
+.subtitle{
+color:var(--muted);
+font-size:12px;
+margin-bottom:25px;
+}
+
+/* FORM */
+
+.form-group{
+margin-bottom:17px;
+}
+
+.form-group label{
+display:block;
+font-size:12px;
+font-weight:600;
+color:#cbd5e1;
+margin-bottom:8px;
+}
+
+input,select{
+width:100%;
+height:45px;
+padding:0 13px;
+background:#0b1527;
+border:1px solid var(--border);
+border-radius:9px;
+color:white;
+outline:none;
+font-family:inherit;
+font-size:13px;
+transition:.3s;
+}
+
+input:focus,select:focus{
+border-color:var(--primary);
+box-shadow:0 0 0 3px rgba(56,189,248,.1);
+}
+
+input::placeholder{
+color:#64748b;
+}
+
+input[type="date"]{
+color-scheme:dark;
+}
+
+select option{
+background:#111c30;
+}
+
+.form-row{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:12px;
+}
+
+.submit-btn{
+width:100%;
+height:48px;
+border:0;
+border-radius:10px;
+background:linear-gradient(110deg,#0ea5e9,#6366f1);
+color:white;
+font-weight:700;
+font-size:14px;
+cursor:pointer;
+margin-top:5px;
+transition:.3s;
+}
+
+.submit-btn:hover{
+transform:translateY(-2px);
+box-shadow:0 8px 25px rgba(56,189,248,.25);
+}
+
+/* OVERVIEW */
+
+.overview-header{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:20px;
+}
+
+.status{
+font-size:11px;
+color:#fbbf24;
+background:rgba(251,191,36,.1);
+padding:7px 11px;
+border-radius:20px;
+}
+
+.status.success{
+color:#4ade80;
+background:rgba(74,222,128,.1);
+}
+
+.stats-grid{
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:12px;
+}
+
+.stat{
+background:#0b1527;
+border:1px solid var(--border);
+border-radius:12px;
+padding:17px;
+min-width:0;
+}
+
+.stat-icon{
+font-size:19px;
+margin-bottom:12px;
+}
+
+.stat-label{
+font-size:11px;
+color:var(--muted);
+margin-bottom:8px;
+}
+
+.stat-value{
+font-size:14px;
+font-weight:700;
+overflow-wrap:anywhere;
+line-height:1.5;
+}
+
+/* QUICK LINKS */
+
+.section-title{
+font-size:17px;
+font-weight:700;
+margin:30px 0 15px;
+}
+
+.links-grid{
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:12px;
+}
+
+.quick-link{
+display:flex;
+align-items:center;
+gap:10px;
+padding:14px 10px;
+border:1px solid var(--border);
+border-radius:10px;
+background:#0b1527;
+color:white;
+text-decoration:none;
+font-size:12px;
+font-weight:600;
+transition:.3s;
+}
+
+.quick-link:hover{
+border-color:var(--primary);
+background:rgba(56,189,248,.08);
+transform:translateY(-2px);
+}
+
+.quick-link span{
+font-size:19px;
+}
+
+/* MAP */
+
+.map{
+width:100%;
+height:260px;
+border:0;
+border-radius:12px;
+margin-top:5px;
+background:#0b1527;
+}
+
+/* PLACES */
+
+.places-list{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:12px;
+list-style:none;
+}
+
+.places-list li{
+background:#0b1527;
+border:1px solid var(--border);
+padding:14px;
+border-radius:10px;
+font-size:13px;
+color:#e2e8f0;
+}
+
+.places-list li a{
+color:var(--primary);
+text-decoration:none;
+}
+
+.places-list li a:hover{
+text-decoration:underline;
+}
+
+.empty{
+color:var(--muted)!important;
+grid-column:1/-1;
+line-height:1.7;
+}
+
+/* FOOTER */
+
+footer{
+text-align:center;
+padding:35px 10px 20px;
+color:var(--muted);
+font-size:12px;
+}
+
+/* RESPONSIVE */
+
+@media(max-width:900px){
+.main-grid{
+grid-template-columns:1fr;
+}
+}
+
+@media(max-width:600px){
+.container{
+padding:16px;
+}
+
+.nav-links{
+gap:12px;
+}
+
+.nav-links a{
+font-size:11px;
+}
+
+.logo{
+font-size:20px;
+}
+
+.hero{
+margin:35px 0 25px;
+}
+
+.card{
+padding:18px;
+}
+
+.stats-grid{
+grid-template-columns:repeat(2,1fr);
+}
+
+.links-grid{
+grid-template-columns:repeat(2,1fr);
+}
+
+.places-list{
+grid-template-columns:1fr;
+}
+
+.hero h1{
+letter-spacing:-1px;
+}
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<!-- NAVBAR -->
+
+<nav class="navbar">
+
+<div class="logo">VOYAGE<span>.</span></div>
+
+<div class="nav-links">
+<a href="#">Home</a>
+<a href="#planner">Plan Trip</a>
+<a href="#overview">Overview</a>
+<a href="#explore">Explore</a>
+</div>
+
+</nav>
+
+<!-- HERO -->
+
+<section class="hero">
+
+<div class="tag">✈ SMART TRAVEL EXPERIENCE</div>
+
+<h1>
+Explore the world.<br>
+<span>Plan your journey.</span>
+</h1>
+
+<p>
+Discover new destinations, organize your travel dates,
+choose your transportation and explore everything
+you need for your next adventure.
+</p>
+
+</section>
+
+<!-- MAIN -->
+
+<div class="main-grid">
+
+<!-- PLANNER FORM -->
+
+<section class="card" id="planner">
+
+<h2>✈ Plan Your Trip</h2>
+
+<p class="subtitle">
+Enter your journey details below.
+</p>
+
+<form id="travelForm">
+
+<div class="form-group">
+
+<label>FROM</label>
+
+<input
+id="from"
+list="placesList"
+placeholder="Enter starting city"
+required
+>
+
+</div>
+
+<div class="form-group">
+
+<label>DESTINATION</label>
+
+<input
+id="dest"
+list="placesList"
+placeholder="Where do you want to go?"
+required
+>
+
+</div>
+
+<datalist id="placesList">
+<option value="Warangal">
+<option value="Hyderabad">
+<option value="Goa">
+<option value="Delhi">
+<option value="Mumbai">
+<option value="Jaipur">
+<option value="Agra">
+<option value="Paris">
+<option value="London">
+<option value="New York">
+<option value="Dubai">
+<option value="Tokyo">
+<option value="Singapore">
+<option value="Bali">
+<option value="Sydney">
+<option value="Bengaluru">
+<option value="Chennai">
+<option value="Kolkata">
+<option value="Pune">
+<option value="Vizag">
+</datalist>
+
+<div class="form-group">
+
+<label>TRANSPORTATION</label>
+
+<select id="mode">
+<option>Flight</option>
+<option>Train</option>
+<option>Bus</option>
+<option>Car</option>
+<option>Bike</option>
+</select>
+
+</div>
+
+<div class="form-row">
+
+<div class="form-group">
+
+<label>DEPARTURE DATE</label>
+
+<input type="date" id="start" required>
+
+</div>
+
+<div class="form-group">
+
+<label>RETURN DATE</label>
+
+<input type="date" id="end" required>
+
+</div>
+
+</div>
+
+<div class="form-group">
+
+<label>HOTEL (OPTIONAL)</label>
+
+<input
+id="hotel"
+placeholder="Preferred hotel name"
+>
+
+</div>
+
+<div class="form-group">
+
+<label>NUMBER OF TRAVELLERS</label>
+
+<select id="adults">
+<option value="1">1 Traveller</option>
+<option value="2" selected>2 Travellers</option>
+<option value="3">3 Travellers</option>
+<option value="4">4 Travellers</option>
+<option value="5">5 Travellers</option>
+<option value="6">6 Travellers</option>
+</select>
+
+</div>
+
+<button type="submit" class="submit-btn">
+Generate Travel Plan →
+</button>
+
+</form>
+
+</section>
+
+<!-- RESULTS -->
+
+<section class="card" id="overview">
+
+<div class="overview-header">
+
+<div>
+<h2>Trip Overview</h2>
+
+<p class="subtitle" style="margin:6px 0 0">
+Your travel information at a glance.
+</p>
+</div>
+
+<div class="status" id="status">
+● Waiting
+</div>
+
+</div>
+
+<div class="stats-grid">
+
+<div class="stat">
+<div class="stat-icon">📍</div>
+<div class="stat-label">YOUR ROUTE</div>
+<div class="stat-value" id="oDest">—</div>
+</div>
+
+<div class="stat">
+<div class="stat-icon">📅</div>
+<div class="stat-label">TRAVEL DATES</div>
+<div class="stat-value" id="oDates">—</div>
+</div>
+
+<div class="stat">
+<div class="stat-icon">🌙</div>
+<div class="stat-label">DURATION</div>
+<div class="stat-value" id="oDur">—</div>
+</div>
+
+<div class="stat">
+<div class="stat-icon">🚘</div>
+<div class="stat-label">TRANSPORT</div>
+<div class="stat-value" id="oMode">—</div>
+</div>
+
+<div class="stat">
+<div class="stat-icon">👥</div>
+<div class="stat-label">TRAVELLERS</div>
+<div class="stat-value" id="oPeople">—</div>
+</div>
+
+<div class="stat">
+<div class="stat-icon">🏨</div>
+<div class="stat-label">HOTEL</div>
+<div class="stat-value" id="oHotel">—</div>
+</div>
+
+</div>
+
+<!-- QUICK LINKS -->
+
+<h3 class="section-title">Explore & Book</h3>
+
+<div class="links-grid">
+
+<a id="fLink" class="quick-link" target="_blank" rel="noopener">
+<span>✈️</span> Flights
+</a>
+
+<a id="tLink" class="quick-link" target="_blank" rel="noopener">
+<span>🚆</span> Trains
+</a>
+
+<a id="bLink" class="quick-link" target="_blank" rel="noopener">
+<span>🚌</span> Buses
+</a>
+
+<a id="bLinkINT" class="quick-link" target="_blank" rel="noopener">
+<span>🌍</span> International
+</a>
+
+<a id="hLink" class="quick-link" target="_blank" rel="noopener">
+<span>🏨</span> Hotels
+</a>
+
+<a id="aLink" class="quick-link" target="_blank" rel="noopener">
+<span>📸</span> Attractions
+</a>
+
+</div>
+
+<!-- MAP -->
+
+<h3 class="section-title">Your Route Map</h3>
+
+<iframe
+id="map"
+class="map"
+title="Travel route map"
+loading="lazy"
+src="https://www.google.com/maps?q=India&output=embed">
+</iframe>
+
+<!-- PLACES -->
+
+<h3 class="section-title" id="explore">
+Popular Places to Explore
+</h3>
+
+<ul id="places" class="places-list">
+
+<li class="empty">
+Your destination recommendations will appear here after generating your travel plan.
+</li>
+
+</ul>
+
+</section>
+
+</div>
+
+<footer>
+© 2026 Voyage Travel Planner | Explore More. Travel Better.
+</footer>
+
+</div>
+
+<script>
+
+// WAIT UNTIL HTML IS LOADED
+
+document.addEventListener("DOMContentLoaded",function(){
+
+const $ = id => document.getElementById(id);
+
+const form = $("travelForm");
+
+// DESTINATION DATABASE
+
+const destinations = {
+
+warangal:[
+"Thousand Pillar Temple",
+"Warangal Fort",
+"Bhadrakali Temple",
+"Ramappa Temple"
+],
+
+hyderabad:[
+"Charminar",
+"Golconda Fort",
+"Hussain Sagar",
+"Ramoji Film City"
+],
+
+goa:[
+"Baga Beach",
+"Calangute Beach",
+"Fort Aguada",
+"Dudhsagar Falls"
+],
+
+delhi:[
+"India Gate",
+"Red Fort",
+"Qutub Minar",
+"Lotus Temple"
+],
+
+mumbai:[
+"Gateway of India",
+"Marine Drive",
+"Elephanta Caves",
+"Juhu Beach"
+],
+
+jaipur:[
+"Hawa Mahal",
+"Amber Fort",
+"City Palace",
+"Jantar Mantar"
+],
+
+agra:[
+"Taj Mahal",
+"Agra Fort",
+"Mehtab Bagh"
+],
+
+paris:[
+"Eiffel Tower",
+"Louvre Museum",
+"Notre-Dame",
+"Arc de Triomphe"
+],
+
+london:[
+"Big Ben",
+"London Eye",
+"Tower Bridge",
+"Buckingham Palace"
+],
+
+dubai:[
+"Burj Khalifa",
+"Dubai Mall",
+"Palm Jumeirah",
+"Dubai Marina"
+],
+
+tokyo:[
+"Tokyo Tower",
+"Shibuya Crossing",
+"Senso-ji Temple",
+"Tokyo Skytree"
+],
+
+singapore:[
+"Marina Bay Sands",
+"Gardens by the Bay",
+"Sentosa Island"
+],
+
+bali:[
+"Uluwatu Temple",
+"Ubud",
+"Kuta Beach",
+"Tanah Lot"
+],
+
+sydney:[
+"Sydney Opera House",
+"Bondi Beach",
+"Harbour Bridge"
+],
+
+bengaluru:[
+"Lalbagh Botanical Garden",
+"Bangalore Palace",
+"Cubbon Park"
+],
+
+chennai:[
+"Marina Beach",
+"Kapaleeshwarar Temple",
+"Fort St George"
+],
+
+kolkata:[
+"Victoria Memorial",
+"Howrah Bridge",
+"Dakshineswar Temple"
+],
+
+pune:[
+"Shaniwar Wada",
+"Aga Khan Palace",
+"Parvati Hill"
+],
+
+vizag:[
+"RK Beach",
+"Kailasagiri",
+"Submarine Museum",
+"Araku Valley"
+]
+
+};
+
+// DATE VALIDATION
+
+const today = new Date();
+
+const todayString = [
+today.getFullYear(),
+String(today.getMonth()+1).padStart(2,"0"),
+String(today.getDate()).padStart(2,"0")
+].join("-");
+
+$("start").min = todayString;
+$("end").min = todayString;
+
+$("start").addEventListener("change",function(){
+
+$("end").min = $("start").value || todayString;
+
+if($("end").value && $("end").value < $("start").value){
+$("end").value = "";
+}
+
+});
+
+// FORMAT DATE
+
+function formatDate(date){
+
+const [year,month,day] = date.split("-");
+
+return `${day}-${month}-${year}`;
+
+}
+
+// CREATE BOOKING LINKS
+
+
+function createLinks(from,dest,start,end,people){
+
+    const origin = encodeURIComponent(from);
+    const destination = encodeURIComponent(dest);
+
+    // FLIGHTS - MakeMyTrip
+    $("fLink").href =
+    `https://www.makemytrip.com/flight/search?itinerary=${from}-${dest}-${start}&tripType=O&paxType=A-${people}_C-0_I-0&cabinClass=E`;
+
+    // TRAINS - IRCTC
+    $("tLink").href =
+    "https://www.irctc.co.in/nget/train-search";
+
+    // BUSES - redBus
+    $("bLink").href =
+    `https://www.redbus.in/bus-tickets/${encodeURIComponent(from.toLowerCase().replace(/\s+/g,"-"))}-to-${encodeURIComponent(dest.toLowerCase().replace(/\s+/g,"-"))}`;
+
+    // INTERNATIONAL BUSES - FlixBus
+    $("bLinkINT").href =
+    "https://www.flixbus.com/";
+
+    // HOTELS - Booking.com
+    $("hLink").href =
+    `https://www.booking.com/searchresults.html?ss=${destination}&checkin=${start}&checkout=${end}&group_adults=${people}`;
+
+    // ATTRACTIONS - GetYourGuide
+    $("aLink").href =
+    `https://www.getyourguide.com/s/?q=${destination}`;
+
+}
+
+// GENERATE DESTINATION PLACES
+
+function displayPlaces(destination){
+
+const list = $("places");
+
+list.replaceChildren();
+
+const places = destinations[destination.toLowerCase()];
+
+if(places && places.length){
+
+places.forEach(function(place){
+
+const li = document.createElement("li");
+
+li.textContent = "📍 " + place;
+
+list.appendChild(li);
+
+});
+
+}else{
+
+const li = document.createElement("li");
+
+li.className = "empty";
+
+li.textContent =
+"Explore popular attractions in "+destination+
+" using the Attractions link above.";
+
+list.appendChild(li);
+
+}
+
+}
+
+// GENERATE TRAVEL PLAN
+
+function generatePlan(){
+
+const from = $("from").value.trim();
+
+const dest = $("dest").value.trim();
+
+const start = $("start").value;
+
+const end = $("end").value;
+
+const mode = $("mode").value;
+
+const people = $("adults").value;
+
+const hotel = $("hotel").value.trim();
+
+// VALIDATION
+
+if(!from || !dest || !start || !end){
+
+alert("Please fill all required fields.");
+
+return;
+
+}
+
+if(from.toLowerCase() === dest.toLowerCase()){
+
+alert("Starting city and destination must be different.");
+
+return;
+
+}
+
+if(start < todayString){
+
+alert("Departure date cannot be in the past.");
+
+return;
+
+}
+
+if(end < start){
+
+alert("Return date cannot be before departure date.");
+
+return;
+
+}
+
+// CALCULATE DURATION
+
+const departure = new Date(start+"T00:00:00");
+
+const returning = new Date(end+"T00:00:00");
+
+const days = Math.round(
+(returning-departure)/86400000
+);
+
+// UPDATE TRIP OVERVIEW
+
+$("oDest").textContent = from+" → "+dest;
+
+$("oDates").textContent =
+formatDate(start)+" → "+formatDate(end);
+
+$("oDur").textContent = days+" Night(s)";
+
+$("oMode").textContent = mode;
+
+$("oPeople").textContent = people+" Traveller(s)";
+
+$("oHotel").textContent = hotel || "Not selected";
+
+// UPDATE BOOKING LINKS
+
+createLinks(from,dest,start,end,people);
+
+// UPDATE MAP
+
+const mapQuery = encodeURIComponent(
+"from "+from+" to "+dest
+);
+
+$("map").src =
+"https://www.google.com/maps?q="+mapQuery+"&output=embed";
+
+// UPDATE PLACES
+
+displayPlaces(dest);
+
+// UPDATE STATUS
+
+$("status").textContent = "● Plan Generated";
+
+$("status").classList.add("success");
+
+// SCROLL TO RESULTS
+
+$("overview").scrollIntoView({
+behavior:"smooth",
+block:"start"
+});
+
+}
+
+// FORM SUBMISSION
+
+form.addEventListener("submit",function(event){
+
+event.preventDefault();
+
+try{
+
+generatePlan();
+
+}catch(error){
+
+console.error("Travel Planner Error:",error);
+
+alert("Something went wrong. Open browser Console using F12.");
+
+}
+
+});
+
+});
+
+</script>
+
+</body>
+</html>
