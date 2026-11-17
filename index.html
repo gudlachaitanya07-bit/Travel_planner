@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#09111f">
-<title>Voyage 2.0 | Smart Travel Planner</title>
+<title>Travel Planner</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -51,13 +51,164 @@ footer{border-top:1px solid var(--line);padding:25px 0;color:var(--muted);font-s
 @media(max-width:620px){.map{height:290px}.wrap{width:min(100% - 26px,1240px)}.nav{height:66px}.nav nav{display:none}.brand{font-size:20px}.nav-actions .btn{padding:9px 11px}.hero{padding:42px 0 27px;gap:22px}h1{letter-spacing:-2px}.hero-art{min-height:205px}.panel{padding:17px}.stats{grid-template-columns:repeat(2,1fr)}.quick-grid{grid-template-columns:repeat(2,1fr)}.lower-grid{grid-template-columns:1fr}.places{grid-template-columns:1fr}.dest-grid{gap:9px}.dest-card img{height:90px}.section-head h2{font-size:20px}}
 @media print{header,.hero-actions,.planner-panel,.quick-grid,.nav-actions,footer,.no-print{display:none!important}body{background:white;color:#111}.panel,.stat,.day,.place{background:white;color:#111;border:1px solid #ccc;box-shadow:none}.sub,.day p,.budget-row{color:#444}.wrap{width:100%}.planner-grid,.lower-grid{display:block}.panel{margin-bottom:15px}.map{height:250px}}
 </style>
+<style>
+:root{
+ --bg:#f4f7f5;
+ --panel:#fff;
+ --surface:#f7f9f7;
+ --line:#e4eae6;
+ --text:#1b2b24;
+ --muted:#718078;
+ --cyan:#25845f;
+ --blue:#68a98b;
+ --green:#25845f;
+ --orange:#b87527;
+ --shadow:0 12px 35px rgba(27,54,39,.07);
+}
+body{
+ background:radial-gradient(ellipse at 12% 0%,rgba(99,177,137,.12),transparent 35%),var(--bg);
+ color:var(--text);
+ line-height:1.55;
+}
+.wrap{width:min(1160px,calc(100% - 48px))}
+header{background:rgba(255,255,255,.88);border-color:var(--line)}
+.nav{height:74px}
+.brand{font-size:21px;letter-spacing:-.8px}
+.brand span{color:var(--cyan)}
+.brand small{font-size:9px;letter-spacing:.5px;color:var(--muted)}
+nav{gap:22px}
+nav a{font-size:12px}
+nav a:hover{color:var(--cyan)}
+.btn{border-radius:10px;padding:11px 16px;font-size:12px}
+.btn-primary{background:var(--cyan);color:#fff;box-shadow:0 7px 18px rgba(37,132,95,.18)}
+.btn-primary:hover{background:#1d704f}
+.btn-ghost{background:var(--panel);border-color:var(--line);color:var(--text)}
+.hero{padding:62px 0 42px;gap:52px}
+.eyebrow{padding:7px 11px;background:rgba(37,132,95,.08);border-color:rgba(37,132,95,.2);color:var(--cyan);font-size:10px}
+h1{font-size:clamp(42px,5.1vw,64px);letter-spacing:-2.7px;margin:19px 0 16px}
+h1 span{background-image:linear-gradient(100deg,#25845f,#78ad8d)}
+.hero p{font-size:15px;line-height:1.8}
+.hero-art{min-height:340px;border-radius:22px;box-shadow:0 20px 45px rgba(31,60,44,.16)}
+.floating-note{left:18px;bottom:18px;padding:14px 16px;border-radius:12px;color:#fff}
+.floating-note small{color:#d5e0e9}
+.section-head{margin:20px 0 16px}
+.section-head h2{font-size:22px}
+.section-head p{font-size:13px}
+main{padding-bottom:72px}
+.planner-grid{grid-template-columns:330px minmax(0,1fr);gap:20px}
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:22px;box-shadow:var(--shadow)}
+.panel h3{font-size:17px}
+.sub{font-size:12px;line-height:1.65}
+.field{margin-bottom:15px}
+.field label{color:var(--muted);font-size:10px;letter-spacing:.7px}
+input,select{height:45px;border-radius:9px;border-color:var(--line);background:var(--surface);color:var(--text);font-size:13px}
+input:focus,select:focus{border-color:var(--cyan);box-shadow:0 0 0 3px rgba(37,132,95,.12)}
+input::placeholder{color:#98a49d}
+.wide{height:46px}
+.results-top{margin-bottom:18px}
+.status{font-size:11px;color:var(--orange);background:rgba(184,117,39,.1)}
+.status.ready{color:var(--green);background:rgba(37,132,95,.1)}
+.stats{gap:11px}
+.stat{background:var(--surface);border-color:var(--line);border-radius:12px;padding:14px}
+.stat .ico{font-size:17px}
+.stat label{font-size:9px;color:var(--muted)}
+.stat strong{font-size:12px}
+.section-title{font-size:14px;margin:23px 0 11px}
+.quick-grid{gap:9px}
+.quick{background:var(--surface);border-color:var(--line);border-radius:10px;padding:12px;font-size:12px}
+.quick:hover{background:rgba(37,132,95,.06);border-color:var(--cyan)}
+.map-wrap{border-color:var(--line);border-radius:12px}
+.map{height:320px}
+.map-hint{font-size:11px}
+.empty{background:var(--surface);border-color:var(--line);font-size:12px}
+.places{gap:9px}
+.place{background:var(--surface);border-color:var(--line);border-radius:10px;padding:12px}
+.place b{font-size:12px}
+.place a{font-size:11px}
+.lower-grid{grid-template-columns:1fr;gap:18px;margin-top:20px}
+.itinerary{grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:10px}
+.day{grid-template-columns:1fr;gap:7px;background:var(--surface);border-color:var(--line);border-radius:11px;padding:14px}
+.day-tag{display:inline-flex;width:max-content;padding:4px 8px;border-radius:20px;background:rgba(37,132,95,.09);font-size:9px}
+.day p{font-size:12px}
+.day b{font-size:13px}
+.saved-trip{background:var(--surface);border-color:var(--line);border-radius:10px;padding:12px}
+.saved-trip b{font-size:12px}
+.dest-grid{gap:14px}
+.dest-card{background:var(--panel);border-color:var(--line);border-radius:13px;box-shadow:0 5px 18px rgba(27,54,39,.04)}
+.dest-card:hover{border-color:var(--cyan);box-shadow:var(--shadow)}
+.dest-card img{height:145px}
+.dest-card div{padding:13px}
+.dest-card b{font-size:13px}
+.dest-card small{font-size:11px}
+footer{border-color:var(--line);font-size:12px}
+.toast{background:var(--text);border-color:rgba(37,132,95,.4);font-size:13px}
+body.dark{
+ --bg:#0d1713;
+ --panel:#15231c;
+ --surface:#1a2a22;
+ --line:rgba(255,255,255,.09);
+ --text:#eef5f0;
+ --muted:#a0b0a5;
+ --cyan:#70d1a2;
+ --blue:#8ebca0;
+ --green:#70d1a2;
+ --orange:#ffc27b;
+ --shadow:0 18px 45px rgba(0,0,0,.2);
+}
+body.dark header{background:rgba(13,23,19,.88)}
+body.dark .btn-primary{color:#092016}
+body.dark .hero-art{border-color:var(--line)}
+body.dark input::placeholder{color:#82958a}
+body.dark .toast{background:#1a2a22}
+@media(max-width:930px){
+ .hero{grid-template-columns:1fr;gap:28px;padding-top:45px}
+ .hero-art{min-height:290px}
+ .planner-grid{grid-template-columns:1fr}
+ .dest-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media(max-width:760px){
+ .nav nav{display:none}
+}
+@media(max-width:620px){
+ .wrap{width:calc(100% - 28px)}
+ .nav{height:64px}
+ .nav-actions .btn{padding:9px 10px}
+ .hero{padding:38px 0 28px;gap:22px}
+ h1{font-size:43px;letter-spacing:-2px}
+ .hero-art{min-height:220px}
+ .section-head{align-items:flex-start}
+ .section-head>.eyebrow{display:none}
+ .panel{padding:17px}
+ .stats{grid-template-columns:repeat(2,minmax(0,1fr))}
+ .quick-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+ .lower-grid{grid-template-columns:1fr}
+ .places{grid-template-columns:1fr}
+ .map{height:270px}
+ .dest-grid{gap:9px}
+ .dest-card img{height:100px}
+ .dest-card div{padding:10px}
+ .dest-card small{font-size:10px}
+ .results-top{align-items:flex-start}
+ .results-top>.btn{white-space:nowrap;padding:9px 10px;font-size:10px}
+ .saved-trip{align-items:flex-start}
+ .saved-trip>div:last-child{flex-shrink:0}
+}
+@media(prefers-reduced-motion:reduce){
+ *,*::before,*::after{scroll-behavior:auto!important;transition:none!important}
+}
+@media print{
+ :root{--text:#111;--muted:#444;--line:#ccc}
+ body{background:#fff;color:#111}
+ .panel,.stat,.day,.place,.saved-trip{background:#fff;color:#111;border:1px solid #ccc;box-shadow:none}
+}
+</style>
 </head>
 <body>
 <header>
  <div class="wrap nav">
-  <a class="brand" href="#">VOYAGE<span>.</span><small>TRAVEL PLANNER 2.0</small></a>
+  <a class="brand" href="#">Travel<span>Planner</span><small>can help plan your next destination</small></a>
   <nav><a href="#home">Home</a><a href="#planner">Plan Trip</a><a href="#overview">Dashboard</a><a href="#discover">Discover</a><a href="#saved">Saved Trips</a></nav>
-  <div class="nav-actions"><button class="btn btn-ghost" id="themeBtn" type="button">◐ Theme</button><a class="btn btn-primary" href="#planner">Start planning ↗</a></div>
+  <div class="nav-actions"><button class="btn btn-ghost" id="themeBtn" type="button">◐ Dark mode</button><a class="btn btn-primary" href="#planner">Start planning ↗</a></div>
  </div>
 </header>
 <div class="wrap">
@@ -65,21 +216,121 @@ footer{border-top:1px solid var(--line);padding:25px 0;color:var(--muted);font-s
  <div>
   <div class="eyebrow">✦ YOUR NEXT ADVENTURE STARTS HERE</div>
   <h1>Travel further.<br><span>Experience more.</span></h1>
-  <p>Plan smarter journeys with a personalized itinerary, estimated trip budget, destination inspiration and quick access to trusted booking platforms — all in one place.</p>
+  <p>Plan smarter journeys with a personalized itinerary, destination inspiration and quick access to trusted booking platforms — all in one place.</p>
   <div class="hero-actions"><a class="btn btn-primary" href="#planner">Create a trip →</a><a class="btn btn-ghost" href="#discover">Explore destinations</a></div>
  </div>
  <div class="hero-art"><div class="floating-note"><b>✈ Make every journey count</b><small>Plan • Explore • Experience</small></div></div>
 </section>
 <main>
- <div class="section-head"><div><h2>Your travel workspace</h2><p>Enter your trip details and build your travel plan.</p></div><span class="eyebrow">VERSION 2.0</span></div>
+ <div class="section-head"><div><h2>Your travel workspace</h2><p>Enter your trip details and build your travel plan.</p></div><span class="eyebrow">PLAN IT</span></div>
  <div class="planner-grid">
   <section class="panel planner-panel" id="planner">
    <h3>✈ Plan your trip</h3><p class="sub">Complete the details below to generate your personalized travel dashboard.</p>
    <form id="travelForm">
     <div class="field"><label for="from">FROM</label><input id="from" list="cityList" placeholder="Starting city" required></div>
     <div class="field"><label for="dest">DESTINATION</label><input id="dest" list="cityList" placeholder="Where would you like to go?" required></div>
-    <datalist id="cityList"><option>Warangal</option><option>Hyderabad</option><option>Goa</option><option>Delhi</option><option>Mumbai</option><option>Jaipur</option><option>Agra</option><option>Paris</option><option>London</option><option>Dubai</option><option>Tokyo</option><option>Singapore</option><option>Bali</option><option>Bengaluru</option><option>Chennai</option><option>Vizag</option><option>Kolkata</option><option>Pune</option><option>New York</option><option>Sydney</option></datalist>
-    <div class="field"><label for="mode">TRANSPORTATION</label><select id="mode"><option>Flight</option><option>Train</option><option>Bus</option><option>Car</option><option>Bike</option></select></div>
+<datalist id="cityList">
+  <option>Warangal</option>
+  <option>Hyderabad</option>
+  <option>Goa</option>
+  <option>Delhi</option>
+  <option>Mumbai</option>
+  <option>Jaipur</option>
+  <option>Agra</option>
+  <option>Paris</option>
+  <option>London</option>
+  <option>Dubai</option>
+  <option>Tokyo</option>
+  <option>Singapore</option>
+  <option>Bali</option>
+  <option>Sydney</option>
+  <option>Bengaluru</option>
+  <option>Chennai</option>
+  <option>Kolkata</option>
+  <option>Pune</option>
+  <option>Vizag</option>
+  <option>Kochi</option>
+  <option>Mysuru</option>
+  <option>Udaipur</option>
+  <option>Varanasi</option>
+  <option>Amritsar</option>
+  <option>Shimla</option>
+  <option>Manali</option>
+  <option>Ooty</option>
+  <option>Kodaikanal</option>
+  <option>Tirupati</option>
+  <option>Vijayawada</option>
+  <option>Lucknow</option>
+  <option>Ahmedabad</option>
+  <option>Istanbul</option>
+  <option>Rome</option>
+  <option>New York</option>
+  <option>Rishikesh</option>
+  <option>Haridwar</option>
+  <option>Mussoorie</option>
+  <option>Nainital</option>
+  <option>Dehradun</option>
+  <option>Srinagar</option>
+  <option>Gulmarg</option>
+  <option>Leh</option>
+  <option>Jodhpur</option>
+  <option>Jaisalmer</option>
+  <option>Bikaner</option>
+  <option>Pushkar</option>
+  <option>Mount Abu</option>
+  <option>Ujjain</option>
+  <option>Indore</option>
+  <option>Bhopal</option>
+  <option>Gwalior</option>
+  <option>Khajuraho</option>
+  <option>Nashik</option>
+  <option>Aurangabad</option>
+  <option>Mahabaleshwar</option>
+  <option>Lonavala</option>
+  <option>Shirdi</option>
+  <option>Hampi</option>
+  <option>Madurai</option>
+  <option>Rameswaram</option>
+  <option>Thanjavur</option>
+  <option>Kanyakumari</option>
+  <option>Coimbatore</option>
+  <option>Munnar</option>
+  <option>Alleppey</option>
+  <option>Thekkady</option>
+  <option>Wayanad</option>
+  <option>Kozhikode</option>
+  <option>Thiruvananthapuram</option>
+  <option>Puducherry</option>
+  <option>Bhubaneswar</option>
+  <option>Puri</option>
+  <option>Konark</option>
+  <option>Guwahati</option>
+  <option>Shillong</option>
+  <option>Cherrapunji</option>
+  <option>Gangtok</option>
+  <option>Darjeeling</option>
+  <option>Kalimpong</option>
+  <option>Dharamshala</option>
+  <option>Dalhousie</option>
+  <option>McLeod Ganj</option>
+  <option>Port Blair</option>
+  <option>Chandigarh</option>
+  <option>Patna</option>
+  <option>Ranchi</option>
+  <option>Raipur</option>
+  <option>Amaravati</option>
+  <option>Kurnool</option>
+  <option>Nellore</option>
+  <option>Rajahmundry</option>
+  <option>Kakinada</option>
+  <option>Guntur</option>
+  <option>Eluru</option>  
+  <option>Bangkok</option>
+  <option>Kuala Lumpur</option>
+  <option>Cairo</option>
+  <option>Barcelona</option>
+  <option>Amsterdam</option>
+</datalist>    <div class="field"><label for="mode">TRANSPORTATION</label><select id="mode"><option>Flight</option><option>Train</option><option>Bus</option><option>Car</option><option>Bike</option></select></div>
     <div class="field-row"><div class="field"><label for="start">DEPARTURE</label><input type="date" id="start" required></div><div class="field"><label for="end">RETURN</label><input type="date" id="end" required></div></div>
     <div class="field"><label for="hotel">HOTEL (OPTIONAL)</label><input id="hotel" placeholder="Preferred hotel"></div>
     <div class="field"><label for="adults">TRAVELLERS</label><select id="adults"><option value="1">1 person</option><option value="2" selected>2 people</option><option value="3">3 people</option><option value="4">4 people</option><option value="5">5 people</option><option value="6">6 people</option><option value="7">7 people</option><option value="8">8 people</option></select></div>
@@ -121,7 +372,7 @@ footer{border-top:1px solid var(--line);padding:25px 0;color:var(--muted);font-s
   <div class="dest-grid">
    <article class="dest-card" data-city="Goa"><img src="https://images.unsplash.com/photo-1512343879784-a960bf40e7f2?auto=format&fit=crop&w=500&q=80" alt="Goa beach"><div><b>Goa</b><small>Beaches & coastal escapes</small></div></article>
    <article class="dest-card" data-city="Jaipur"><img src="https://images.unsplash.com/photo-1477587458883-47145ed94245?auto=format&fit=crop&w=500&q=80" alt="Jaipur palace"><div><b>Jaipur</b><small>Forts & royal heritage</small></div></article>
-   <article class="dest-card" data-city="Hyderabad"><img src="https://images.unsplash.com/photo-1567157577867-4cc9b6a8a5e5?auto=format&fit=crop&w=500&q=80" alt="Charminar Hyderabad"><div><b>Hyderabad</b><small>Culture & city experiences</small></div></article>
+   <article class="dest-card" data-city="Hyderabad"><img src="https://images.unsplash.com/photo-1741545979534-02f59c742730?auto=format&fit=crop&w=500&q=80" alt="Charminar Hyderabad"><div><b>Hyderabad</b><small>Culture & city experiences</small></div></article>
    <article class="dest-card" data-city="Paris"><img src="https://images.unsplash.com/photo-1502602898657-3e91760cbb34?auto=format&fit=crop&w=500&q=80" alt="Paris"><div><b>Paris</b><small>Art, food & romance</small></div></article>
   </div>
  </section>
@@ -138,27 +389,107 @@ document.addEventListener("DOMContentLoaded",()=>{
  const iso=d=>{const x=new Date(d.getTime()-d.getTimezoneOffset()*60000);return x.toISOString().slice(0,10)};
  $("start").min=iso(today);$("end").min=iso(today);
  $("start").addEventListener("change",()=>{$("end").min=$("start").value||iso(today);if($("end").value<$("start").value)$("end").value=""});
- const attractions={
-  warangal:["Warangal Fort","Thousand Pillar Temple","Bhadrakali Temple","Ramappa Temple"],
-  hyderabad:["Charminar","Golconda Fort","Hussain Sagar","Salar Jung Museum","Ramoji Film City"],
-  goa:["Baga Beach","Calangute Beach","Fort Aguada","Dudhsagar Falls","Anjuna Beach"],
-  delhi:["India Gate","Red Fort","Qutub Minar","Lotus Temple","Humayun's Tomb"],
-  mumbai:["Gateway of India","Marine Drive","Elephanta Caves","Juhu Beach"],
-  jaipur:["Hawa Mahal","Amber Fort","City Palace","Jantar Mantar"],
-  agra:["Taj Mahal","Agra Fort","Mehtab Bagh"],
-  paris:["Eiffel Tower","Louvre Museum","Notre-Dame Cathedral","Arc de Triomphe"],
-  london:["Big Ben","London Eye","Tower Bridge","Buckingham Palace"],
-  dubai:["Burj Khalifa","Dubai Mall","Palm Jumeirah","Dubai Marina"],
-  tokyo:["Tokyo Tower","Shibuya Crossing","Senso-ji Temple","Tokyo Skytree"],
-  singapore:["Marina Bay Sands","Gardens by the Bay","Sentosa Island"],
-  bali:["Uluwatu Temple","Ubud","Kuta Beach","Tanah Lot"],
-  sydney:["Sydney Opera House","Bondi Beach","Harbour Bridge"],
-  bengaluru:["Lalbagh Botanical Garden","Bangalore Palace","Cubbon Park"],
-  chennai:["Marina Beach","Kapaleeshwarar Temple","Fort St George"],
-  kolkata:["Victoria Memorial","Howrah Bridge","Dakshineswar Temple"],
-  pune:["Shaniwar Wada","Aga Khan Palace","Parvati Hill"],
-  vizag:["RK Beach","Kailasagiri","Submarine Museum","Araku Valley"]
- };
+const attractions={
+  rishikesh:["Ram Jhula","Lakshman Jhula","Triveni Ghat","Neer Garh Waterfall","Parmarth Niketan","Beatles Ashram"],
+  haridwar:["Har Ki Pauri","Mansa Devi Temple","Chandi Devi Temple","Daksha Mahadev Temple","Shantikunj","Bharat Mata Mandir"],
+  mussoorie:["Kempty Falls","Gun Hill","Mall Road","Lal Tibba","Company Garden","Cloud's End"],
+  nainital:["Naini Lake","Naina Devi Temple","Snow View Point","Tiffin Top","Eco Cave Gardens","Nainital Zoo"],
+  dehradun:["Robber's Cave","Sahastradhara","Forest Research Institute","Tapkeshwar Temple","Malsi Deer Park","Mindrolling Monastery"],
+  srinagar:["Dal Lake","Mughal Gardens","Shankaracharya Temple","Hazratbal Shrine","Nishat Bagh","Shalimar Bagh"],
+  gulmarg:["Gulmarg Gondola","Apharwat Peak","Khilanmarg","St Mary's Church","Gulmarg Golf Course","Strawberry Valley"],
+  leh:["Pangong Lake","Nubra Valley","Shanti Stupa","Leh Palace","Thiksey Monastery","Magnetic Hill"],
+  jodhpur:["Mehrangarh Fort","Umaid Bhawan Palace","Jaswant Thada","Clock Tower","Mandore Gardens","Toorji Ka Jhalra"],
+  jaisalmer:["Jaisalmer Fort","Sam Sand Dunes","Patwon Ki Haveli","Gadisar Lake","Kuldhara Village","Bada Bagh"],
+  bikaner:["Junagarh Fort","Karni Mata Temple","Lalgarh Palace","Rampuria Havelis","Gajner Palace","National Research Centre on Camel"],
+  pushkar:["Pushkar Lake","Brahma Temple","Savitri Temple","Pushkar Camel Fair Ground","Varaha Temple","Rangji Temple"],
+  mount_abu:["Nakki Lake","Dilwara Temples","Guru Shikhar","Sunset Point","Achalgarh Fort","Toad Rock"],
+  ujjain:["Mahakaleshwar Jyotirlinga","Ram Ghat","Kal Bhairav Temple","Harsiddhi Temple","Mangalnath Temple","Vedh Shala"],
+  indore:["Rajwada Palace","Lal Bagh Palace","Sarafa Bazaar","Kanch Mandir","Patalpani Waterfall","Annapurna Temple"],
+  bhopal:["Upper Lake","Van Vihar National Park","Taj-ul-Masajid","Sanchi Stupa","Bhimbetka Rock Shelters","Tribal Museum"],
+  gwalior:["Gwalior Fort","Jai Vilas Palace","Sas Bahu Temples","Teli Ka Mandir","Gujari Mahal","Sun Temple"],
+  khajuraho:["Western Group of Temples","Kandariya Mahadeva Temple","Lakshmana Temple","Eastern Group of Temples","Raneh Falls","Archaeological Museum"],
+  nashik:["Trimbakeshwar Temple","Pandavleni Caves","Sula Vineyards","Ramkund","Anjaneri Hills","Kalaram Temple"],
+  aurangabad:["Ajanta Caves","Ellora Caves","Bibi Ka Maqbara","Daulatabad Fort","Grishneshwar Temple","Panchakki"],
+  mahabaleshwar:["Venna Lake","Arthur's Seat","Mapro Garden","Elephant's Head Point","Pratapgad Fort","Lingmala Waterfall"],
+  lonavala:["Tiger's Leap","Bhushi Dam","Karla Caves","Lohagad Fort","Pawna Lake","Rajmachi Fort"],
+  shirdi:["Shirdi Sai Baba Temple","Dwarkamai","Chavadi","Dixit Wada Museum","Lendi Baug","Shani Shingnapur"],
+  hampi:["Virupaksha Temple","Vijaya Vittala Temple","Stone Chariot","Hampi Bazaar","Lotus Mahal","Matanga Hill"],
+  madurai:["Meenakshi Amman Temple","Thirumalai Nayakkar Palace","Gandhi Memorial Museum","Alagar Kovil","Vandiyur Mariamman Teppakulam","Koodal Azhagar Temple"],
+  rameswaram:["Ramanathaswamy Temple","Pamban Bridge","Dhanushkodi","Agni Theertham","Pamban Island","APJ Abdul Kalam Memorial"],
+  thanjavur:["Brihadeeswarar Temple","Thanjavur Palace","Saraswathi Mahal Library","Schwartz Church","Sivaganga Park","Art Gallery"],
+  kanyakumari:["Vivekananda Rock Memorial","Thiruvalluvar Statue","Kanyakumari Beach","Suchindram Temple","Vattakottai Fort","Sunset Point"],
+  coimbatore:["Marudhamalai Temple","Isha Yoga Center","Adiyogi Statue","VOC Park and Zoo","Siruvani Waterfalls","Gass Forest Museum"],
+  munnar:["Eravikulam National Park","Mattupetty Dam","Echo Point","Top Station","Tea Museum","Kundala Lake"],
+  alleppey:["Alappuzha Beach","Alleppey Backwaters","Vembanad Lake","Marari Beach","Pathiramanal Island","Krishnapuram Palace"],
+  thekkady:["Periyar Wildlife Sanctuary","Periyar Lake","Mangala Devi Temple","Kumily","Chellarkovil Viewpoint","Kadathanadan Kalari Centre"],
+  wayanad:["Edakkal Caves","Banasura Sagar Dam","Pookode Lake","Soochipara Waterfalls","Chembra Peak","Kuruva Island"],
+  kozhikode:["Kozhikode Beach","Beypore Beach","Kappad Beach","Mananchira Square","Thusharagiri Waterfalls","SM Street"],
+  thiruvananthapuram:["Padmanabhaswamy Temple","Kovalam Beach","Napier Museum","Kuthiramalika Palace","Poovar Island","Veli Tourist Village"],
+  puducherry:["Promenade Beach","Paradise Beach","Auroville","Sri Aurobindo Ashram","French Quarter","Serenity Beach"],
+  bhubaneswar:["Lingaraj Temple","Udayagiri Caves","Khandagiri Caves","Dhauli Shanti Stupa","Nandankanan Zoological Park","Rajarani Temple"],
+  puri:["Jagannath Temple","Puri Beach","Konark Sun Temple","Chilika Lake","Gundicha Temple","Raghurajpur Artist Village"],
+  konark:["Konark Sun Temple","Chandrabhaga Beach","Archaeological Museum","Ramachandi Temple","Kuruma Buddhist Site"],
+  guwahati:["Kamakhya Temple","Umananda Temple","Assam State Museum","Brahmaputra River Cruise","Pobitora Wildlife Sanctuary","Srimanta Sankardev Kalakshetra"],
+  shillong:["Umiam Lake","Elephant Falls","Shillong Peak","Ward's Lake","Don Bosco Museum","Police Bazaar"],
+  cherrapunji:["Nohkalikai Falls","Seven Sisters Falls","Mawsmai Cave","Arwah Cave","Double Decker Living Root Bridge","Eco Park"],
+  gangtok:["Tsomgo Lake","Nathula Pass","Rumtek Monastery","MG Marg","Banjhakri Falls","Hanuman Tok"],
+  darjeeling:["Tiger Hill","Batasia Loop","Darjeeling Himalayan Railway","Himalayan Mountaineering Institute","Padmaja Naidu Zoo","Peace Pagoda"],
+  kalimpong:["Deolo Hill","Durpin Monastery","Cactus Nursery","Morgan House","Zang Dhok Palri Monastery","Pine View Nursery"],
+  dharamshala:["Dalai Lama Temple","Bhagsunag Waterfall","HPCA Cricket Stadium","Kangra Art Museum","Dal Lake","Norbulingka Institute"],
+  dalhousie:["Khajjiar","Panchpula","Dainkund Peak","Kalatop Wildlife Sanctuary","St John's Church","Satdhara Falls"],
+  mcleod_ganj:["Namgyal Monastery","Bhagsu Waterfall","Triund Trek","Dalai Lama Temple","Tibetan Museum","Naddi View Point"],
+  port_blair:["Cellular Jail","Corbyn's Cove Beach","Ross Island","North Bay Island","Chidiya Tapu","Anthropological Museum"],
+  chandigarh:["Rock Garden","Sukhna Lake","Rose Garden","Capitol Complex","Elante Mall","Government Museum and Art Gallery"],
+  patna:["Golghar","Bihar Museum","Takht Sri Patna Sahib","Patna Museum","Kumhrar Park","Sanjay Gandhi Biological Park"],
+  ranchi:["Hundru Falls","Dassam Falls","Rock Garden","Tagore Hill","Jonha Falls","Jagannath Temple"],
+  raipur:["Nandan Van Zoo","Mahant Ghasidas Memorial Museum","Purkhouti Muktangan","Vivekananda Sarovar","Ghatarani Waterfalls","Sirpur"],
+  amaravati:["Amaravati Stupa","Dhyana Buddha Statue","Undavalli Caves","Kondapalli Fort","Prakasam Barrage","Mangalagiri Temple"],
+  kurnool:["Belum Caves","Oravakallu Rock Garden","Konda Reddy Fort","Yaganti Temple","Mahanandi Temple","Rollapadu Wildlife Sanctuary"],
+  nellore:["Ranganatha Temple","Pulicat Lake","Nelapattu Bird Sanctuary","Mypadu Beach","Udayagiri Fort","Jonnawada Temple"],
+  rajahmundry:["Godavari Bridge","Dowleswaram Barrage","Pushkar Ghat","ISKCON Temple","Papi Hills","Kadiyapulanka Nurseries"],
+  kakinada:["Coringa Wildlife Sanctuary","Hope Island","Uppada Beach","Draksharamam Temple","Kakinada Beach","Sri Bhavanarayana Swamy Temple"],
+  guntur:["Amaravati Stupa","Undavalli Caves","Kondaveedu Fort","Mangalagiri Temple","Uppalapadu Bird Sanctuary","Kotappakonda"],
+  eluru:["Kolleru Lake","Dwaraka Tirumala Temple","Guntupalli Buddhist Caves","Eluru Buddha Park","Kolleru Bird Sanctuary"],
+  warangal: ["Warangal Fort","Thousand Pillar Temple","Bhadrakali Temple","Ramappa Temple","Laknavaram Lake","Pakhal Lake","Kakatiya Rock Garden","Kakatiya Musical Garden","Padmakshi Temple","Govindarajula Gutta"],  hyderabad:["Charminar","Golconda Fort","Hussain Sagar","Salar Jung Museum","Ramoji Film City","Chowmahalla Palace","Birla Mandir","Qutb Shahi Tombs","Shilparamam","Nehru Zoological Park","Statue of Equality","Durgam Cheruvu"],
+  goa:["Baga Beach","Calangute Beach","Fort Aguada","Dudhsagar Falls","Anjuna Beach","Palolem Beach","Candolim Beach","Basilica of Bom Jesus","Chapora Fort","Vagator Beach","Colva Beach","Reis Magos Fort"],
+  delhi:["India Gate","Red Fort","Qutub Minar","Lotus Temple","Humayun's Tomb","Akshardham Temple","Jama Masjid","Rashtrapati Bhavan","Lodhi Garden","National Museum","Jantar Mantar","Chandni Chowk"],
+  mumbai:["Gateway of India","Marine Drive","Elephanta Caves","Juhu Beach","Siddhivinayak Temple","Chhatrapati Shivaji Maharaj Terminus","Haji Ali Dargah","Bandra-Worli Sea Link","Sanjay Gandhi National Park","Colaba Causeway"],
+  jaipur:["Hawa Mahal","Amber Fort","City Palace","Jantar Mantar","Jal Mahal","Nahargarh Fort","Jaigarh Fort","Albert Hall Museum","Birla Mandir","Patrika Gate","Galta Ji Temple"],
+  agra:["Taj Mahal","Agra Fort","Mehtab Bagh","Fatehpur Sikri","Akbar's Tomb","Itmad-ud-Daulah's Tomb","Mankameshwar Temple"],
+  paris:["Eiffel Tower","Louvre Museum","Notre-Dame Cathedral","Arc de Triomphe","Palace of Versailles","Montmartre","Sacré-Cœur Basilica","Musée d'Orsay","Luxembourg Gardens","Seine River Cruise"],
+  london:["Big Ben","London Eye","Tower Bridge","Buckingham Palace","British Museum","Tower of London","Hyde Park","Westminster Abbey","Madame Tussauds","Trafalgar Square","St Paul's Cathedral"],
+  dubai:["Burj Khalifa","Dubai Mall","Palm Jumeirah","Dubai Marina","Museum of the Future","Dubai Frame","Burj Al Arab","Miracle Garden","Global Village","Dubai Creek","Atlantis The Palm"],
+  tokyo:["Tokyo Tower","Shibuya Crossing","Senso-ji Temple","Tokyo Skytree","Meiji Jingu Shrine","Shinjuku Gyoen","Akihabara","Ueno Park","teamLab Planets","Imperial Palace"],
+  singapore:["Marina Bay Sands","Gardens by the Bay","Sentosa Island","Universal Studios Singapore","Merlion Park","Singapore Flyer","Jewel Changi Airport","Singapore Zoo","Clarke Quay","Chinatown","Little India"],
+  bali:["Uluwatu Temple","Ubud","Kuta Beach","Tanah Lot","Tegallalang Rice Terraces","Mount Batur","Nusa Penida","Seminyak Beach","Tirta Empul Temple","Bali Safari and Marine Park"],
+  sydney:["Sydney Opera House","Bondi Beach","Harbour Bridge","Darling Harbour","Royal Botanic Garden","Taronga Zoo","Manly Beach","The Rocks","Blue Mountains","Queen Victoria Building"],
+  bengaluru:["Lalbagh Botanical Garden","Bangalore Palace","Cubbon Park","ISKCON Temple","Bannerghatta Biological Park","Vidhana Soudha","Nandi Hills","Tipu Sultan's Summer Palace","Commercial Street","Ulsoor Lake"],
+  chennai:["Marina Beach","Kapaleeshwarar Temple","Fort St George","Mahabalipuram","Government Museum","Santhome Cathedral","Elliot's Beach","Guindy National Park","Valluvar Kottam","DakshinaChitra"],
+  kolkata:["Victoria Memorial","Howrah Bridge","Dakshineswar Temple","Indian Museum","Belur Math","Marble Palace","Kalighat Temple","Science City","Prinsep Ghat","St. Paul's Cathedral"],
+  pune:["Shaniwar Wada","Aga Khan Palace","Parvati Hill","Sinhagad Fort","Dagdusheth Halwai Ganpati Temple","Raja Dinkar Kelkar Museum","Pataleshwar Cave Temple","Lal Mahal","Khadakwasla Dam"],
+  vizag:["RK Beach","Kailasagiri","Submarine Museum","Araku Valley","Borra Caves","Yarada Beach","Rushikonda Beach","Simhachalam Temple","Dolphin's Nose","Indira Gandhi Zoological Park"],
+  kochi:["Fort Kochi","Chinese Fishing Nets","Mattancherry Palace","Jew Town","Marine Drive","Hill Palace Museum","Cherai Beach","Kerala Folklore Museum"],
+  mysuru:["Mysore Palace","Chamundi Hills","Brindavan Gardens","St. Philomena's Church","Mysore Zoo","Jaganmohan Palace","Karanji Lake","Railway Museum"],
+  udaipur:["City Palace","Lake Pichola","Jag Mandir","Fateh Sagar Lake","Saheliyon Ki Bari","Bagore Ki Haveli","Sajjangarh Palace","Jagdish Temple"],
+  varanasi:["Kashi Vishwanath Temple","Dashashwamedh Ghat","Assi Ghat","Sarnath","Manikarnika Ghat","Ramnagar Fort","Banaras Hindu University"],
+  amritsar:["Golden Temple","Jallianwala Bagh","Wagah Border","Durgiana Temple","Partition Museum","Gobindgarh Fort"],
+  shimla:["The Ridge","Mall Road","Jakhoo Temple","Kufri","Christ Church","Viceregal Lodge","Green Valley"],
+  manali:["Solang Valley","Rohtang Pass","Hadimba Temple","Old Manali","Vashisht Hot Springs","Jogini Waterfall","Atal Tunnel"],
+  ooty:["Ooty Lake","Botanical Garden","Doddabetta Peak","Rose Garden","Pykara Lake","Nilgiri Mountain Railway","Emerald Lake"],
+  kodaikanal:["Kodaikanal Lake","Coaker's Walk","Pillar Rocks","Bryant Park","Dolphin's Nose","Silver Cascade Falls","Berijam Lake"],
+  tirupati:["Tirumala Venkateswara Temple","Sri Padmavathi Temple","Kapila Theertham","Sri Venkateswara Zoological Park","Chandragiri Fort"],
+  vijayawada:["Kanaka Durga Temple","Prakasam Barrage","Undavalli Caves","Bhavani Island","Kondapalli Fort","Amaravati Stupa"],
+  lucknow:["Bara Imambara","Chota Imambara","Rumi Darwaza","British Residency","Ambedkar Memorial Park","Hazratganj"],
+  ahmedabad:["Sabarmati Ashram","Adalaj Stepwell","Kankaria Lake","Sidi Saiyyed Mosque","Akshardham Temple","Science City"],
+  istanbul:["Hagia Sophia","Blue Mosque","Topkapi Palace","Grand Bazaar","Basilica Cistern","Galata Tower","Bosphorus Cruise"],
+  rome:["Colosseum","Trevi Fountain","Pantheon","Roman Forum","Vatican Museums","St. Peter's Basilica","Spanish Steps"],
+  newyork:["Statue of Liberty","Times Square","Central Park","Empire State Building","Brooklyn Bridge","Rockefeller Center","Metropolitan Museum of Art"],
+  bangkok:["Grand Palace","Wat Arun","Wat Pho","Chatuchak Market","ICONSIAM","Lumphini Park","Safari World"],
+  kuala_lumpur:["Petronas Twin Towers","Batu Caves","KL Tower","Merdeka Square","Aquaria KLCC","Thean Hou Temple"],
+  cairo:["Pyramids of Giza","Great Sphinx","Egyptian Museum","Khan el-Khalili","Cairo Citadel"],
+  barcelona:["Sagrada Familia","Park Güell","Casa Batlló","La Rambla","Gothic Quarter","Camp Nou"],
+  amsterdam:["Rijksmuseum","Van Gogh Museum","Anne Frank House","Dam Square","Vondelpark","Canal Cruise"]
+};
  const formatDate=s=>new Date(s+"T00:00:00").toLocaleDateString("en-IN",{day:"2-digit",month:"short",year:"numeric"});
  const money=n=>"₹"+Math.round(n).toLocaleString("en-IN");
  function toast(message){const t=$("toast");t.textContent=message;t.classList.add("show");clearTimeout(toast.timer);toast.timer=setTimeout(()=>t.classList.remove("show"),2600)}
@@ -232,7 +563,7 @@ document.addEventListener("DOMContentLoaded",()=>{
  $("clearSaved").addEventListener("click",()=>{localStorage.removeItem("voyageTrips");renderSaved();toast("Saved trips cleared.")});
  $("pdfBtn").addEventListener("click",()=>{if(!currentTrip){toast("Generate a trip before printing.");return}window.print()});
  document.querySelectorAll(".dest-card").forEach(card=>card.addEventListener("click",()=>{$("dest").value=card.dataset.city;$("planner").scrollIntoView({behavior:"smooth"});$("from").focus();toast(card.dataset.city+" selected as destination.")}));
- $("themeBtn").addEventListener("click",()=>{document.body.classList.toggle("light");const light=document.body.classList.contains("light");document.documentElement.style.setProperty("--bg",light?"#edf4f8":"#08111f");document.documentElement.style.setProperty("--panel",light?"#ffffff":"#101d30");document.documentElement.style.setProperty("--text",light?"#102033":"#f4f7fb");document.documentElement.style.setProperty("--muted",light?"#526579":"#9aabc0");document.body.style.background=light?"#edf4f8":"";document.querySelectorAll(".panel").forEach(p=>p.style.background=light?"#fff":"");document.querySelectorAll(".stat,.quick,.place,.day,.saved-trip,.empty").forEach(p=>{p.style.background=light?"#f4f8fb":"";p.style.color=light?"#102033":""});toast(light?"Light theme enabled.":"Dark theme enabled.")});
+ $("themeBtn").addEventListener("click",()=>{const dark=document.body.classList.toggle("dark");$("themeBtn").textContent=dark?"☀ Light mode":"◐ Dark mode";toast(dark?"Dark theme enabled.":"Light theme enabled.")});
  renderSaved();
 });
 </script>
